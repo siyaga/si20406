@@ -1,18 +1,18 @@
 package com.example.simplecrud;
 
-public class Artist {
+public class DataDiri {
     String id;
     String name;
-    String genre;
+    String nomor;
 
-    public Artist() {
+    public DataDiri() {
 
     }
 
-    public Artist(String id, String name, String genre) {
+    public DataDiri(String id, String name,String nomor ) {
         this.id = id;
         this.name = name;
-        this.genre = genre;
+        this.nomor = nomor;
     }
 
     public String getId() {
@@ -31,11 +31,12 @@ public class Artist {
         this.name = name;
     }
 
-    public String getGenre() {
-        return genre;
+    public String getNomor() {
+        return nomor;
     }
 
-    public void setGenre(String genre) {
-        this.genre = genre;
+    public void setNomor(String nomor) {
+        this.nomor = nomor;
     }
+
 }

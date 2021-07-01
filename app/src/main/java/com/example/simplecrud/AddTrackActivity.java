@@ -47,10 +47,10 @@ public class AddTrackActivity extends AppCompatActivity {
         tracks = new ArrayList<>();
 
         Intent in = getIntent();
-        String id = in.getStringExtra(MainActivity.ARTIST_ID);
-        String name = in.getStringExtra(MainActivity.ARTIST_NAME);
+        String id = in.getStringExtra(MainActivity.DATADIRI_ID);
+        String name = in.getStringExtra(MainActivity.DATADIRI_NAME);
         artName.setText(name);
-        databaseTracks = FirebaseDatabase.getInstance().getReference("tracks").child(in.getStringExtra(MainActivity.ARTIST_ID));
+        databaseTracks = FirebaseDatabase.getInstance().getReference("lagufavorite").child(in.getStringExtra(MainActivity.DATADIRI_ID));
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,7 +92,7 @@ public class AddTrackActivity extends AppCompatActivity {
             Track track = new Track( id, trackName, rating);
             databaseTracks.child(id).setValue(track);
 
-            Toast.makeText(getApplicationContext(),"Tracked Saved Succesfully",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),"Lagu Favorite Saved Succesfully",Toast.LENGTH_SHORT).show();
 
         }
     }

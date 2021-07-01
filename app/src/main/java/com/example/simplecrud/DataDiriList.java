@@ -12,11 +12,11 @@ import androidx.annotation.Nullable;
 
 import java.util.List;
 
-public class ArtistList extends ArrayAdapter<Artist> {
+public class DataDiriList extends ArrayAdapter<DataDiri> {
 
     private Activity context;
-    private List<Artist> list;
-    public ArtistList(Activity context, List<Artist> list){
+    private List<DataDiri> list;
+    public DataDiriList(Activity context, List<DataDiri> list){
         super(context,R.layout.list_layout,list);
         this.context = context;
         this.list = list;
@@ -28,11 +28,11 @@ public class ArtistList extends ArrayAdapter<Artist> {
         LayoutInflater inflater = context.getLayoutInflater();
         View listViewItem = inflater.inflate(R.layout.list_layout,null,true);
         TextView tv1 = (TextView) listViewItem.findViewById(R.id.n);
-        TextView tv2 = (TextView) listViewItem.findViewById(R.id.g);
+        TextView tv2 = (TextView) listViewItem.findViewById(R.id.no);
 
-        Artist artist = list.get(position);
-        tv1.setText(artist.getName());
-        tv2.setText(artist.getGenre());
+        DataDiri dataDiri = list.get(position);
+        tv1.setText(dataDiri.getName());
+        tv2.setText(dataDiri.getNomor());
         return listViewItem;
     }
 }

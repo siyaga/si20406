@@ -24,30 +24,30 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.zip.Inflater;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final String ARTIST_NAME = "artistName";
-    public static final String ARTIST_ID = "artistId";
+    public static final String DATADIRI_NAME = "artistName";
+    public static final String DATADIRI_NOMOR = "artistNomor";
+    public static final String DATADIRI_ID = "artistId";
 
-    EditText e;
+    EditText e,o;
     Button b;
     Spinner sp;
     DatabaseReference databaseArtist;
     ListView lv;
-    List<Artist> list;
+    List<DataDiri> list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        databaseArtist = FirebaseDatabase.getInstance().getReference("artists");
+        databaseArtist = FirebaseDatabase.getInstance().getReference("datadiri");
 
         e = findViewById(R.id.et);
+        o = findViewById(R.id.eo);
         b = findViewById(R.id.btn);
-        sp = findViewById(R.id.spin);
         lv = findViewById(R.id.li);
         list = new ArrayList<>();
 
@@ -61,17 +61,18 @@ public class MainActivity extends AppCompatActivity {
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Artist artist = list.get(position);
+                DataDiri dataDiri = list.get(position);
                 Intent in = new Intent(getApplicationContext(),AddTrackActivity.class);
-                in.putExtra(ARTIST_ID,artist.getId());
-                in.putExtra(ARTIST_NAME,artist.getName());
+                in.putExtra(DATADIRI_ID, dataDiri.getId());
+                in.putExtra(DATADIRI_NOMOR, dataDiri.getNomor());
+                in.putExtra(DATADIRI_NAME, dataDiri.getName());
                 startActivity(in);
             }
         });
         lv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Artist ar = list.get(position);
+                DataDiri ar = list.get(position);
                 showUpdateDialog(ar.getId(),ar.getName());
                 return true;
             }
@@ -89,11 +90,11 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 list.clear();
                 for(DataSnapshot as : dataSnapshot.getChildren()){
-                    Artist artist = as.getValue(Artist.class);
-                    list.add(artist);
+                    DataDiri dataDiri = as.getValue(DataDiri.class);
+                    list.add(dataDiri);
                 }
 
-                ArtistList adapter = new ArtistList(MainActivity.this,list);
+                DataDiriList adapter = new DataDiriList(MainActivity.this,list);
                 lv.setAdapter(adapter);
 
             }
@@ -105,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void showUpdateDialog(final String artistId, String artistName) {
+    private void showUpdateDialog(final String dataID, String artistName) {
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
@@ -113,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
         dialogBuilder.setView(dialogView);
 
         final EditText editTextName = (EditText) dialogView.findViewById(R.id.na);
-        final Spinner spinnerGenre = (Spinner) dialogView.findViewById(R.id.spin1);
+        final EditText editTextNomor = (EditText) dialogView.findViewById(R.id.no);
         final Button buttonUpdate = (Button) dialogView.findViewById(R.id.bun);
         final Button buttonDelete = (Button) dialogView.findViewById(R.id.buttonDeleteArtist);
 
@@ -125,9 +126,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String name = editTextName.getText().toString().trim();
-                String genre = spinnerGenre.getSelectedItem().toString();
+                String nomor = editTextNomor.getText().toString().trim();
                 if (!TextUtils.isEmpty(name)) {
-                    updateArtist(artistId, name, genre);
+                    updateDataDiri(dataID, name, nomor);
                     b.dismiss();
                 }
             }
@@ -136,41 +137,43 @@ public class MainActivity extends AppCompatActivity {
         buttonDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deleteArtist(artistId);
+                deleteDataDiri(dataID);
             }
         });
      }
 
-     private boolean deleteArtist(String id){
-         DatabaseReference dR = FirebaseDatabase.getInstance().getReference("artists").child(id);
+     private boolean deleteDataDiri(String id){
+         DatabaseReference dR = FirebaseDatabase.getInstance().getReference("datadiri").child(id);
          dR.removeValue();
 
-         DatabaseReference drTracks = FirebaseDatabase.getInstance().getReference("tracks").child(id);
+         DatabaseReference drTracks = FirebaseDatabase.getInstance().getReference("lagufavorite").child(id);
          drTracks.removeValue();
-         Toast.makeText(getApplicationContext(), "Artist Deleted", Toast.LENGTH_LONG).show();
+         Toast.makeText(getApplicationContext(), "Data Diri TerDeleted", Toast.LENGTH_LONG).show();
 
          return true;
      }
-    private boolean updateArtist(String id, String name, String genre) {
+    private boolean updateDataDiri(String id, String name, String nomor) {
         //getting the specified artist reference
-        DatabaseReference dR = FirebaseDatabase.getInstance().getReference("artists").child(id);
+        DatabaseReference dR = FirebaseDatabase.getInstance().getReference("datadiri").child(id);
 
         //updating artist
-        Artist artist = new Artist(id, name, genre);
-        dR.setValue(artist);
-        Toast.makeText(getApplicationContext(), "Artist Updated", Toast.LENGTH_LONG).show();
+        DataDiri dataDiri = new DataDiri(id, name,nomor);
+        dR.setValue(dataDiri);
+        Toast.makeText(getApplicationContext(), "Data Diri TerUpdated", Toast.LENGTH_LONG).show();
         return true;
     }
 
     public void add(){
         String name = e.getText().toString();
-        String genre = sp.getSelectedItem().toString();
+        String nomor = o.getText().toString();
         if(!TextUtils.isEmpty(name)){
 
             String id = databaseArtist.push().getKey();
-            Artist art = new Artist(id, name, genre);
+            DataDiri art = new DataDiri(id, name,nomor);
             databaseArtist.child(id).setValue(art);
-            Toast.makeText(getApplicationContext(),"Artist added Successfully",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),"DataDiri added Successfully",Toast.LENGTH_SHORT).show();
+            e.setText("");
+            o.setText("");
         }else{
             Toast.makeText(getApplicationContext(),"Enter a valid name.",Toast.LENGTH_SHORT).show();
         }

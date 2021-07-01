@@ -22,14 +22,16 @@
             android:layout_height="wrap_content"
             android:textSize="24dp"
             android:id="@+id/et"
-            android:hint="Nama Artis"/>
-        <Spinner
-            android:id="@+id/spin"
-            android:textSize="24dp"
-            android:entries="@array/genres"
+            android:hint="Nama"/>
+        <EditText
+            android:layout_marginTop="40dp"
             android:layout_width="320dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"/>
+            android:textSize="24dp"
+            android:inputType="number"
+            android:id="@+id/eo"
+            android:hint="Nomor HP"/>
+
         <Button
 
             android:textAllCaps="false"
@@ -37,7 +39,7 @@
             android:layout_marginTop="30dp"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:text="Simpan Artis Submit"
+            android:text="Simpan Data Diri"
             android:layout_marginBottom="20dp"
             android:textSize="24dp"/>
     </LinearLayout>

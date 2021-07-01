@@ -1,14 +1,7 @@
 <resources>
     <string name="app_name">SimpleCRUD</string>
     <array name="genres">
-        <item>Dangdut</item>
-        <item>Metal</item>
-        <item>Classical</item>
-        <item>Hip-Hop</item>
-        <item>Repper</item>
-        <item>Rock</item>
-        <item>Sufi</item>
-        <item>Pop</item>
-        <item>Folk</item>
+        <item>Ya</item>
+        <item>Tidak</item>
     </array>
 </resources>

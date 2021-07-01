@@ -11,13 +11,14 @@
         android:id="@+id/na"
         android:layout_height="wrap_content"
         android:textSize="30dp"/>
-    <Spinner
-        android:id="@+id/spin1"
-        android:textSize="24dp"
-        android:entries="@array/genres"
-        android:layout_width="280dp"
+    <EditText
+        android:layout_marginTop="40dp"
+        android:layout_width="320dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"/>
+        android:textSize="24dp"
+        android:inputType="number"
+        android:id="@+id/no"/>
+
     <Button
         android:layout_marginTop="20dp"
         android:id="@+id/bun"

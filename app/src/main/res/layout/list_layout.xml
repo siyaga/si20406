@@ -16,14 +16,13 @@
             android:textSize="28dp"
             android:gravity="center_horizontal" />
         <TextView
-            android:layout_marginTop="10dp"
             android:layout_width="320dp"
             android:textAlignment="center"
-            android:id="@+id/g"
+            android:id="@+id/no"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
             android:textSize="28dp"
             android:gravity="center_horizontal" />
+
 
     </LinearLayout>
 </LinearLayout>
